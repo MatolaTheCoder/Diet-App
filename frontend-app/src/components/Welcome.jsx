@@ -10,8 +10,8 @@ export default function Welcome() {
             <div className="flex justify-center">
                 <div className="pt-24 pr-8">
                     <div className="pt-6 ">
-                        <p className='text-2xl font-semibold text-gray-700'>Bem vindo a nossa <br /> <span className='text-3xl font-bold text-emerald-500'>Aplicacao de Dieta</span></p><br />
-
+                        <p className='text-2xl font-semibold text-gray-700'>Bem vindo a nossa <br /> 
+                        <span className='text-3xl font-bold text-emerald-500'>Aplicacao de Dieta <span class="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-emerald-400 opacity-75"></span></span></p>
                     </div>
                 </div>
                 <div className="pt-24 pl-12">
