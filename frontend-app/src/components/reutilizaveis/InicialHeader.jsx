@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 export default function InicialHeader() {
     return (
         <div>
-            <nav class="w-full bg-white dark:bg-slate-900">
+            <nav class="w-full bg-white ">
                 <div class="container mx-auto py-4 flex items-center justify-between">
                     <div class="flex flex-col items-center p-4">
                         <span class="font-nunito text-green-400 "><span className='text-xl font-medium'>Diet</span>-<span className='text-gray-400 text-lg'>App</span></span>
