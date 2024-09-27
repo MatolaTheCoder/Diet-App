@@ -1,18 +1,18 @@
 import React from 'react'
-import InputField from '../reutilizaveis/InputField' 
+import InputField from '../reutilizaveis/InputField'
 
 export default function Update() {
-        const objjectivos = [
-          { id: 1, descricao: 'Perder peso' },
-          { id: 2, descricao: 'Ganhar massa muscular' },
-          { id: 3, descricao: 'Manter o peso' },
-        ] 
-      
-        const restricoes = [
-          { id: 1, descricao: 'Nenhuma' },
-          { id: 2, descricao: 'Intolerância à lactose' },
-          { id: 3, descricao: 'Mariscos' },
-        ] 
+    const objjectivos = [
+        { id: 1, descricao: 'Perder peso' },
+        { id: 2, descricao: 'Ganhar massa muscular' },
+        { id: 3, descricao: 'Manter o peso' },
+    ]
+
+    const restricoes = [
+        { id: 1, descricao: 'Nenhuma' },
+        { id: 2, descricao: 'Intolerância à lactose' },
+        { id: 3, descricao: 'Mariscos' },
+    ]
     return (
         <div>
             <div className="">
@@ -30,12 +30,12 @@ export default function Update() {
                 </nav>
             </div>
             <div className="bg-neutral-50 w-full min-h-full">
-                <div className="p-6 max-w-7xl mt-3">
+                <div className="px-6 pt-4 max-w-7xl mx-auto mt-3">
                     <p className="text-gray-600 font-semibold text-2xl">
                         | Actualizar dados
                     </p>
                 </div>
-                <div className="max-w-5xl mt-12 mx-auto p-5">
+                <div className="max-w-5xl mx-auto p-5">
                     <form action="">
 
                         <div className="bg-white shadow-lg rounded-lg w-full max-w-6xl grid grid-cols-1 md:grid-cols-2">
@@ -81,15 +81,9 @@ export default function Update() {
                                         ))}
                                     </select>
                                 </div>
-
-                                <div className="mt-4">
-                                    <p className="inline-flex items-center">
-                                        Já tem conta? <span className='text-blue-500 ml-1.5'>Faça o login</span>
-                                    </p>
-                                </div>
                                 <div className="mt-6">
-                                    <button className="bg-white text-emerald-600 px-6 py-2 rounded-full font-semibold hover:bg-gray-200">
-                                        Registar
+                                    <button type='submit' className="bg-white text-emerald-600 px-6 py-2 rounded-full font-semibold hover:bg-gray-200">
+                                        Actualizar
                                     </button>
                                 </div>
                             </div>
