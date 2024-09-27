@@ -6,15 +6,15 @@ import InicialHeader from '../reutilizaveis/InicialHeader'
 export default function Login() {
     return (
         <div>
-            <div className="shadow">
+            <div className="shadow ">
                 <InicialHeader />
             </div>
-            <div className=" flex justify-center items-center w-full h-full ">
-                <div className="mt-12 p-8 shadow shadow-emerald-50 rounded-tr-lg">
+            <div className=" flex justify-center items-center w-full h-full  ">
+                <div className="mt-12 p-8 shadow shadow-emerald-50 rounded-tr-lg bg-white rounded-md">
                     <div className="my-5 flex justify-center">
                         <div className="text-emerald-500 text-xl font-medium">Registe-se</div>
                     </div>
-                    <form action="">
+                    <form  action="">
                         <div className="flex flex-col gap-4">
                             <InputField label={'Email'} name={'email'} value={''} onChange={''} />
                             <InputField label={'Senha'} name={'senha'} value={''} onChange={''} />

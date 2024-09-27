@@ -9,9 +9,9 @@ export default function Register() {
         <InicialHeader />
       </div>
       <div className="flex justify-center items-center w-full pt-5">
-        <div className="bg-white shadow-lg rounded-lg w-3/4 max-w-6xl grid grid-cols-2">
+        <div className="bg-white shadow-lg rounded-lg w-full max-w-6xl grid grid-cols-1 md:grid-cols-2">
           <div className="p-8">
-            <h2 className="text-emerald-600 text-2xl font-semibold mb-6 radius-tr">Informacao Geral</h2>
+            <h2 className="text-emerald-600 text-2xl font-semibold mb-6">Informação Geral</h2>
             <InputField label={'Nome'} name={'nome'} value={''} onChange={''} />
             <InputField label={'Email'} name={'email'} value={''} onChange={''} />
             <InputField label={'Senha'} name={'senha'} value={''} onChange={''} />
@@ -19,13 +19,14 @@ export default function Register() {
           </div>
 
           {/* Contact Details Section */}
-          <div className="bg-emerald-600/30 text-white p-8 rounded-r-lg">
+          <div className="bg-emerald-600/30 text-white p-8 rounded-b-lg md:rounded-b-none md:rounded-r-lg">
             <h2 className="text-2xl font-semibold mb-6">Dados</h2>
             <InputField label={'Idade'} name={'idade'} value={''} onChange={''} />
             <InputField label={'Peso'} name={'peso'} value={''} onChange={''} />
             <InputField label={'Altura'} name={'altura'} value={''} onChange={''} />
             <InputField label={'Objectivos'} name={'objectivos'} value={''} onChange={''} />
-            <InputField label={'Restricoes'} name={'restricoes'} value={''} onChange={''} />
+            <InputField label={'Restrições'} name={'restricoes'} value={''} onChange={''} />
+
             {/* Terms and Conditions */}
             <div className="mt-4">
               <p className="inline-flex items-center">

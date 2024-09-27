@@ -10,11 +10,11 @@ export default function InicialHeader() {
                         <span class="font-nunito text-green-400 "><span className='text-xl font-medium'>Diet</span>-<span className='text-gray-400 text-lg'>App</span></span>
                     </div>
                     <div>
-                        <ul class="hidden md:flex gap-8  font-semibold text-sm text-gray-600 dark:text-gray-200 underline">
-                            <li class="hover:text-gray-800 dark:hover:text-white">
+                        <ul class="hidden md:flex gap-8  font-semibold text-sm text-gray-600  underline">
+                            <li class="hover:text-gray-800 ">
                                 <Link to={'/register'}>Registe-se</Link>
                             </li>
-                            <li class="hover:text-gray-800 pr-8 dark:hover:text-white"><Link to={'/login'}>Login</Link></li>
+                            <li class="hover:text-gray-800 pr-8 "><Link to={'/login'}>Login</Link></li>
                         </ul>
                     </div>
                 </div>
