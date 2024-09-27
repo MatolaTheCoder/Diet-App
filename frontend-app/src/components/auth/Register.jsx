@@ -35,7 +35,7 @@ export default function Register() {
 
             {/* Submit Button */}
             <div className="mt-6">
-              <button className="bg-white text-emerald-600 px-6 py-2 rounded-full font-semibold hover:bg-gray-100">
+              <button className="bg-white text-emerald-600 px-6 py-2 rounded-full font-semibold hover:bg-gray-200">
                 Registar
               </button>
             </div>
