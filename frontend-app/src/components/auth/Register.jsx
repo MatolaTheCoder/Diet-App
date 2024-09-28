@@ -68,31 +68,54 @@ export default function Register() {
           text: 'Registado com Sucesso!',
           icon: 'success',
           confirmButtonText: 'OK'
-        }).then((result) => {
-              if (result.isConfirmed)
-                window.location.href = '/';
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            // Login automático após o registro bem-sucedido
+            const loginResponse = await fetch('http://127.0.0.1:8000/api/login', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                email: formData.email,
+                senha: formData.senha,
+              }),
+            });
+
+            if (loginResponse.ok) {
+              const loginData = await loginResponse.json();
+              // Salve o token ou dados do usuário localmente (por exemplo, localStorage)
+              localStorage.setItem('token', loginData.access_token);
+
+              // Redirecione o usuário para a página inicial ou para a página desejada
+              window.location.href = '/dashboard';
+            } else {
+              Swal.fire({
+                title: 'Erro no Login',
+                text: 'Não foi possível fazer o login automaticamente.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+              });
             }
-        );
+          }
+         });
 
-      } else {
-        const errorData = await response.json();
-        // eslint-disable-next-line no-undef
-        Swal.fire({
-          title: 'Um erro ocorreu!',
-          text: `${errorData.message}`,
-          icon: 'Error',
-          confirmButtonText: 'OK'
-        })
-
-      }
-    } catch (error) {
-      // eslint-disable-next-line no-undef
-      Swal.fire({
-        title: 'Um erro ocorreu!',
-        text: `${error.text}`,
-        icon: 'Error',
-        confirmButtonText: 'OK'
-      })
+              } else {
+                    const errorData = await registerResponse.json();
+                    Swal.fire({
+                      title: 'Um erro ocorreu!',
+                      text: `${errorData.message}`,
+                      icon: 'error',
+                      confirmButtonText: 'OK'
+                    });
+              }
+        } catch (error) {
+          Swal.fire({
+            title: 'Um erro ocorreu!',
+            text: 'Erro no servidor. Tente novamente mais tarde.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
       console.error(error);
     }
   };
