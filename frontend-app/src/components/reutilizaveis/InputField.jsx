@@ -1,14 +1,15 @@
 import React from 'react'
 
-export default function InputField({name, label, value, onChange}) {
+export default function InputField({name, label, type,value, onChange}) {
   return (
     <div className="w-full mb-3">
       <label htmlFor={name} className="block text-md text-gray-800">{label}:</label>
       <input
-        type="text"
+        type={type}
         id={name}
         name={name}
         value={value}
+        required
         onChange={onChange}
         className="w-64 bg-gray-100 text-gray-600 border border-gray-200 rounded shadow-md px-3 py-1.5 focus:outline-none focus:border-blue-200"
       />

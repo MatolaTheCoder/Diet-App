@@ -43,8 +43,8 @@ export default function Update() {
                                 <h2 className="text-emerald-600 text-2xl font-semibold mb-6">Actualizar informacao geral</h2>
                                 <InputField label={'Nome'} name={'nome'} onChange={''} />
                                 <InputField label={'Email'} name={'email'} onChange={''} />
-                                <InputField label={'Senha'} name={'senha'} onChange={''} />
-                                <InputField label={'Confirmar Senha'} name={'conf_senha'} onChange={''} />
+                                <InputField label={'Senha'} name={'password'} onChange={''} />
+                                <InputField label={'Confirmar Senha'} name={'confirmed_password'} onChange={''} />
                             </div>
                             <div className="bg-emerald-600/30 text-white p-8 rounded-b-lg md:rounded-b-none md:rounded-r-lg">
                                 <h2 className="text-2xl font-semibold mb-6">Actualizar dados</h2>
@@ -54,7 +54,7 @@ export default function Update() {
                                 <div className="w-full mb-3">
                                     <label htmlFor={'objectivos'} className="block text-md text-gray-800">Objetivos:</label>
                                     <select
-                                        name={'objectivos'}
+                                        name={'objetivo'}
                                         id={'objectivos'}
                                         className="w-64 bg-gray-100 border border-gray-200 text-gray-700 rounded shadow-md px-3 py-1.5 focus:outline-none focus:border-blue-200"
                                     >
