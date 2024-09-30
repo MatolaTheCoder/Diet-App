@@ -5,6 +5,14 @@ import Register from './components/auth/Register'
 import Login from './components/auth/Login'
 import Home from './components/Home'
 import Update from './components/auth/Update'
+import React from "react";
+import Informacoes from "./components/utilities/Informacoes.jsx";
+import Sugestoes from "./components/utilities/Sugestoes.jsx";
+import Dashboard from "./components/Dashboard.jsx";
+
+function Logout() {
+  return null;
+}
 
 function App() {
 
@@ -15,7 +23,12 @@ function App() {
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/update' element={<Update/>}/>
+        <Route path='/dashboard' element={<Dashboard/>}/>
         <Route path='/home' element={<Home/>}/>
+        <Route path="/informacoes" element={<Informacoes/>} />
+        <Route path="/sugestoes" element={<Sugestoes/>} />
+        <Route path="/logout" component={<Logout/>} />
+
       </Routes>
     </>
   )

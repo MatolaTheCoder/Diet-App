@@ -13,7 +13,8 @@ export default function Register() {
     peso: '',
     altura: '',
     objectivos: '',
-    restricoes: ''
+    restricoes: '',
+    genero: ''
   });
 
   const objjectivos = [
@@ -27,6 +28,11 @@ export default function Register() {
     { id: 2, descricao: 'Intolerância à lactose' },
     { id: 3, descricao: 'Mariscos' },
   ];
+
+  const gender = [
+    {id: 1 , gend : 'Homem'},
+    {id: 2 , gend:  'Mulher'}
+  ]
 
   // Função para lidar com a mudança dos campos
   const handleChange = (e) => {
@@ -84,12 +90,14 @@ export default function Register() {
 
             if (loginResponse.ok) {
               const loginData = await loginResponse.json();
+              const token_var = loginData.access_token;
               // Salve o token ou dados do usuário localmente (por exemplo, localStorage)
-              localStorage.setItem('token', loginData.access_token);
+              localStorage.setItem('token', token_var);
 
               // Redirecione o usuário para a página inicial ou para a página desejada
               window.location.href = '/dashboard';
             } else {
+              // eslint-disable-next-line no-undef
               Swal.fire({
                 title: 'Erro no Login',
                 text: 'Não foi possível fazer o login automaticamente.',
@@ -101,7 +109,9 @@ export default function Register() {
          });
 
               } else {
-                    const errorData = await registerResponse.json();
+
+                    const errorData = await response.json();
+        // eslint-disable-next-line no-undef
                     Swal.fire({
                       title: 'Um erro ocorreu!',
                       text: `${errorData.message}`,
@@ -110,6 +120,7 @@ export default function Register() {
                     });
               }
         } catch (error) {
+      // eslint-disable-next-line no-undef
           Swal.fire({
             title: 'Um erro ocorreu!',
             text: 'Erro no servidor. Tente novamente mais tarde.',
@@ -141,9 +152,30 @@ export default function Register() {
               {/* Dados Section */}
               <div className="bg-emerald-600/30 text-white p-8 rounded-b-lg md:rounded-b-none md:rounded-r-lg">
                 <h2 className="text-2xl font-semibold mb-6">Dados</h2>
-                <InputField label={'Idade'} type={'number'} name={'idade'} onChange={handleChange} value={formData.idade} />
-                <InputField label={'Peso'} type={'number'} name={'peso'} onChange={handleChange} value={formData.peso} />
-                <InputField label={'Altura'} type={'number'} name={'altura'} onChange={handleChange} value={formData.altura} />
+                <div className="w-full mb-3">
+                  <label htmlFor={'generos'} className="block text-md text-gray-800">Sexo:</label>
+                  <select
+                      name={'genero'}
+                      id={'generos'}
+                      className="w-64 bg-gray-100 border border-gray-200 text-gray-700 rounded shadow-md px-3 py-1.5 focus:outline-none focus:border-blue-200"
+                      onChange={handleChange}
+                      value={formData.gender}
+                      required
+                  >
+                    <option value="">--- Selecione ---</option>
+                    {gender.map(option => (
+                        <option key={option.id} value={option.id}>
+                          {option.gend}
+                        </option>
+                    ))}
+                  </select>
+                </div>
+
+                <InputField label={'Idade'} type={'number'} name={'idade'} onChange={handleChange}
+                            value={formData.idade}/>
+                <InputField label={'Peso'} type={'number'} name={'peso'} onChange={handleChange} value={formData.peso}/>
+                <InputField label={'Altura'} type={'number'} name={'altura'} onChange={handleChange}
+                            value={formData.altura}/>
 
                 {/* Select for Objectivos */}
                 <div className="w-full mb-3">
