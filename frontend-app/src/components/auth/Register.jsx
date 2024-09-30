@@ -45,6 +45,7 @@ export default function Register() {
   // Send data to server
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData)
 
     if (formData.senha !== formData.conf_senha) {
       // eslint-disable-next-line no-undef

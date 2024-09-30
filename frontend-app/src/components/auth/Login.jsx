@@ -48,6 +48,7 @@ export default function Login() {
 
                 // Armazena o token no localStorage
                 localStorage.setItem('token', loginData.access_token);
+                localStorage.setItem('user_id',loginData.user_id);
 
                 // Redireciona para a dashboard
                 window.location.href = '/dashboard';

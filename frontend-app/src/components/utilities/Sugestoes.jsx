@@ -1,64 +1,111 @@
-// eslint-disable-next-line no-unused-vars
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from "./Header.jsx";
 import Card from "../reutilizaveis/Card.jsx";
-export default function SuggestionList() {
 
+export default function Sugestoes() {
 
+    const [suggestions, setSuggestions] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    // const suggestions = [
-    //     {
-    //         title: 'Salada de Frango',
-    //         image: 'https://via.placeholder.com/400x300.png?text=Salada+de+Frango',
-    //         description: 'Uma deliciosa salada de frango com alface, tomates e molho leve.',
-    //         calories: 350
-    //     },
-    //     {
-    //         title: 'Smoothie de Morango',
-    //         image: 'https://via.placeholder.com/400x300.png?text=Smoothie+de+Morango',
-    //         description: 'Bebida refrescante de morango com iogurte natural.',
-    //         calories: 150
-    //     },
-    //     {
-    //         title: 'Tacos de Peixe',
-    //         image: 'https://via.placeholder.com/400x300.png?text=Tacos+de+Peixe',
-    //         description: 'Tacos saudáveis recheados com peixe grelhado e vegetais frescos.',
-    //         calories: 450
-    //     },
-    //     {
-    //         title: 'Tacos de Peixe',
-    //         image: 'https://via.placeholder.com/400x300.png?text=Tacos+de+Peixe',
-    //         description: 'Tacos saudáveis recheados com peixe grelhado e vegetais frescos.',
-    //         calories: 450
-    //     },
-    //     {
-    //         title: 'Tacos de Peixe',
-    //         image: 'https://via.placeholder.com/400x300.png?text=Tacos+de+Peixe',
-    //         description: 'Tacos saudáveis recheados com peixe grelhado e vegetais frescos.',
-    //         calories: 450
-    //     }
-    // ];
+    useEffect(() => {
+        const fetchSuggestions = async () => {
+            const token = localStorage.getItem('token');
+            const storeduserid = localStorage.getItem('user_id');
+            const id = Number(storeduserid);
+
+            // Adicionar logs para verificar se o ID e o token estão sendo corretamente recuperados
+            console.log("ID do usuário recuperado do localStorage:", id);
+            console.log("Token do usuário:", token);
+
+            if (!id || isNaN(id)) {
+                setError("ID do usuário inválido");
+                setLoading(false);
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/api/sugestoes/${id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log("Dados recebidos da API:", data); // Verifique a estrutura aqui
+                    setSuggestions(data.sugestao); // Acessa o array `sugestao` no JSON retornado
+                } else {
+                    setError('Erro ao carregar sugestões');
+                }
+            } catch (err) {
+                setError('Erro ao conectar ao servidor');
+                console.error("Erro na requisição:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchSuggestions();
+    }, []);
+
+    if (loading) {
+        return (
+            <div>
+                <div className="w-full fixed top-0 left-0">
+                    <Header />
+                </div>
+
+                <div className="mt-32">
+                    <h1 className="text-3xl text-center">Sugestões</h1>
+                </div>
+
+                <div className="flex justify-center items-center min-h-screen bg-gray-100">
+                    <div className="text-center mt-10 text-yellow-500">Carregando ... </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div>
+                <div className="w-full fixed top-0 left-0">
+                    <Header />
+                </div>
+
+                <div className="mt-32">
+                    <h1 className="text-3xl text-center">Sugestões</h1>
+                </div>
+
+                <div className="flex justify-center items-center min-h-screen bg-gray-100">
+                    <div className="text-center mt-10 text-red-500">{error}</div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div>
             <div className="w-full fixed top-0 left-0">
-                <Header/>
-
+                <Header />
             </div>
 
-            <div className="mt-32"><h1 className="text-3xl text-center">Sugestões</h1></div>
+            <div className="mt-32">
+                <h1 className="text-3xl text-center">Sugestões</h1>
+            </div>
 
-            <div className="flex justify-center items-center min-h-screen bg-gray-100 ">
-
-
+            <div className="flex justify-center items-center min-h-screen bg-gray-100">
                 <div className="container mx-auto py-6 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     {suggestions.map((meal, index) => (
                         <Card
                             key={index}
-                            title={meal.title}
-                            image={meal.image}
-                            description={meal.description}
-                            calories={meal.calories}
+                            title={meal.nome}           // Usando `nome` ao invés de `title`
+                            image={meal.imagem}         // Usando `imagem` ao invés de `image`
+                            description={meal.descricao} // Usando `descricao` ao invés de `description`
+                            calories={meal.calorias}     // Usando `calorias`
                         />
                     ))}
                 </div>
