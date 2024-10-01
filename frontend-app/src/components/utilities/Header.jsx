@@ -33,6 +33,37 @@ export default function Header() {
             console.error("Erro na requisição de logout:", error)
         }
     };
+    const handleUpdate = async () => {
+        try {
+            const id = localStorage.getItem('user_id');
+
+            const response = await fetch(`http://127.0.0.1:8000/api/update/${Number(id)}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                window.location.href = '/update';
+            }
+
+
+            const data = await response.json(); // Correct way to extract data
+            localStorage.setItem('dados', JSON.stringify(data));
+
+        } catch (error) {
+            Swal.fire({
+                title: 'Um erro ocorreu!',
+                text: `Erro:${error}`,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            console.error(error);
+        }
+    };
+
+
     return (
         <header>
             <nav className="w-full bg-white shadow-sm">
@@ -77,7 +108,7 @@ export default function Header() {
                                                 <button onClick={handleLogout}>Logout</button>
                                             </li>
                                             <li className="p-2 hover:bg-gray-100 transition-colors duration-200">
-                                                <Link to="/update">Update</Link>
+                                                <button onClick={handleUpdate}> Update</button>
                                             </li>
                                         </ul>
                                     </li>

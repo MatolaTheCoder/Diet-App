@@ -1,9 +1,16 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import InicialHeader from '../reutilizaveis/InicialHeader';
 import InputField from '../reutilizaveis/InputField';
 
 export default function Update() {
+    const [data, setData] = useState(null);
+    useEffect(() => {
+        const storedData = localStorage.getItem('dados');
+        if (storedData) {
+            setData(JSON.parse(storedData));
+        }
+    }, []);
     const [formData, setFormData] = useState({
         nome: '',
         email: '',
@@ -16,7 +23,22 @@ export default function Update() {
         restricoes: '',
         genero: ''
     });
-
+    // Atualizar formData quando data estiver disponível
+    useEffect(() => {
+        if (data) {
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                nome: data.nome || '',
+                email: data.email || '',
+                idade: data.idade || '',
+                peso: data.peso || '',
+                altura: data.altura || '',
+                objectivos: data.objetivo || '',
+                restricoes: data.restricoes || '',
+                genero: data.sexo || ''
+            }));
+        }
+    }, [data]);
     const objjectivos = [
         { id: 1, descricao: 'Perder peso' },
         { id: 2, descricao: 'Ganhar massa muscular' },
