@@ -1,18 +1,48 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Header() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
+
+    const handleLogout = async () => {
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            console.error("Nenhum token encontrado")
+            return
+        }
+
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            if (response.ok) {
+                localStorage.removeItem('token')
+                localStorage.removeItem('user_id')
+
+                window.location.href = '/login'
+            } else {
+                console.error("Erro ao realizar logout")
+            }
+        } catch (error) {
+            console.error("Erro na requisição de logout:", error)
+        }
+    };
     return (
         <header>
             <nav className="w-full bg-white shadow-sm">
                 <div className="container mx-auto py-4 flex items-center justify-between">
                     {/* Logo Section */}
                     <div className="flex items-center p-4">
-            <span className="font-nunito text-green-400">
-              <span className="text-xl font-medium">Diet</span>
-              -<span className="text-gray-400 text-lg">App</span>
-            </span>
+                        <span className="font-nunito text-green-400">
+                            <span className="text-xl font-medium">Diet</span>
+                            -<span className="text-gray-400 text-lg">App</span>
+                        </span>
                     </div>
 
                     {/* Navigation Links */}
@@ -21,7 +51,7 @@ export default function Header() {
 
                         <div>
                             <div>
-                                <ul className="hidden md:flex gap-8 font-semibold text-sm text-gray-600 underline">
+                                <ul className="hidden md:flex pr-6 gap-8 font-semibold text-sm text-gray-600 underline">
                                     <li className="hover:text-gray-800 transition-colors duration-200">
                                         <Link to="/informacoes">Informações</Link>
                                     </li>
@@ -44,7 +74,7 @@ export default function Header() {
                                             aria-label="User dropdown menu"
                                         >
                                             <li className="p-2 hover:bg-gray-100 transition-colors duration-200">
-                                                <Link to="/logout">Logout</Link>
+                                                <button onClick={handleLogout}>Logout</button>
                                             </li>
                                             <li className="p-2 hover:bg-gray-100 transition-colors duration-200">
                                                 <Link to="/update">Update</Link>
@@ -53,12 +83,12 @@ export default function Header() {
                                     </li>
                                 </ul>
                             </div>
-                    </div>
+                        </div>
 
-            </div>
-        </div>
-</nav>
-</header>
-)
-    ;
+                    </div>
+                </div>
+            </nav>
+        </header>
+    )
+        ;
 }
