@@ -10,6 +10,7 @@ import React from "react";
 import Informacoes from "./components/utilities/Informacoes.jsx";
 import Sugestoes from "./components/utilities/Sugestoes.jsx";
 import Dashboard from "./components/Dashboard.jsx";
+import ProtectedAccess from './components/reutilizaveis/ProtectedAccess.jsx'
 
 function Logout() {
   return null;
@@ -23,12 +24,12 @@ function App() {
         <Route path='/' element={<Welcome/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
-        <Route path='/update' element={<Update/>}/>
-        <Route path='/dashboard' element={<Dashboard/>}/>
-        <Route path='/home' element={<Home/>}/>
-        <Route path="/informacoes" element={<Informacoes/>} />
-        <Route path="/sugestoes" element={<Sugestoes/>} />
-        <Route path="/logout" element={<Logout/>} />
+        <Route path='/update' element={<ProtectedAccess><Update/></ProtectedAccess>}/>
+        <Route path='/dashboard' element={<ProtectedAccess><Dashboard/> </ProtectedAccess>}/>
+        <Route path='/home' element={<ProtectedAccess><Home/></ProtectedAccess>}/>
+        <Route path="/informacoes" element={<ProtectedAccess> <Informacoes/></ProtectedAccess>} />
+        <Route path="/sugestoes" element={<ProtectedAccess> <Sugestoes/> </ProtectedAccess>} />
+        <Route path="/logout" element={<ProtectedAccess><Logout/></ProtectedAccess>} />
 
       </Routes>
     </>
