@@ -106,7 +106,7 @@ export default function Register() {
               });
             }
           }
-         });
+         })
 
               } else {
 
@@ -153,13 +153,13 @@ export default function Register() {
               <div className="bg-emerald-600/30 text-white p-8 rounded-b-lg md:rounded-b-none md:rounded-r-lg">
                 <h2 className="text-2xl font-semibold mb-6">Dados</h2>
                 <div className="w-full mb-3">
-                  <label htmlFor={'generos'} className="block text-md text-gray-800">Sexo:</label>
+                  <label htmlFor={'genero'} className="block text-md text-gray-800">Sexo:</label>
                   <select
                       name={'genero'}
-                      id={'generos'}
+                      id={'genero'}
                       className="w-64 bg-gray-100 border border-gray-200 text-gray-700 rounded shadow-md px-3 py-1.5 focus:outline-none focus:border-blue-200"
                       onChange={handleChange}
-                      value={formData.gender}
+                      value={formData.genero}
                       required
                   >
                     <option value="">--- Selecione ---</option>
