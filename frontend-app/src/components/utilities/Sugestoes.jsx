@@ -55,15 +55,12 @@ export default function Sugestoes() {
         return (
             <div>
                 <div className="w-full fixed top-0 left-0">
-                    <Header />
+                    <Header/>
                 </div>
 
-                <div className="mt-32">
-                    <h1 className="text-3xl text-center">Sugestões</h1>
-                </div>
-
-                <div className="flex justify-center items-center min-h-screen bg-gray-100">
-                    <div className="text-center mt-10 text-yellow-500">Carregando ... </div>
+                <div style={loadingStyle}>
+                    <div className="spinner"/>
+                    <p>Carregando...</p>
                 </div>
             </div>
         );
@@ -73,7 +70,7 @@ export default function Sugestoes() {
         return (
             <div>
                 <div className="w-full fixed top-0 left-0">
-                    <Header />
+                <Header />
                 </div>
 
                 <div className="mt-32">
@@ -113,3 +110,37 @@ export default function Sugestoes() {
         </div>
     );
 }
+
+
+// Estilos para o loading
+const loadingStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+};
+
+
+
+// Estilos para o spinner (opcional)
+const spinnerStyle = `
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #09f;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+`;
+
+// Adicionando estilo do spinner no documento
+const styleElement = document.createElement('style');
+styleElement.textContent = spinnerStyle;
+document.head.appendChild(styleElement);document.head.appendChild(styleElement);
+

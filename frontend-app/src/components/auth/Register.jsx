@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import InicialHeader from '../reutilizaveis/InicialHeader';
 import InputField from '../reutilizaveis/InputField';
+import Swal from "sweetalert2";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -48,8 +49,8 @@ export default function Register() {
     console.log(formData)
 
     if (formData.senha !== formData.conf_senha) {
-      // eslint-disable-next-line no-undef
-      Swal.fire({
+       
+      await Swal.fire({
         title: 'Um erro ocorreu!',
         text: 'Os campos senha e confirmação de senha não coincidem!',
         icon: 'Error',
@@ -69,7 +70,7 @@ export default function Register() {
       });
 
       if (response.ok) {
-        // eslint-disable-next-line no-undef
+         
         Swal.fire({
           title: 'Success!',
           text: 'Registado com Sucesso!',
@@ -92,14 +93,16 @@ export default function Register() {
             if (loginResponse.ok) {
               const loginData = await loginResponse.json();
               const token_var = loginData.access_token;
+              const userid = loginData.user_id;
+
               // Salve o token ou dados do usuário localmente (por exemplo, localStorage)
               localStorage.setItem('token', token_var);
-
+              localStorage.setItem('user_id',userid)
               // Redirecione o usuário para a página inicial ou para a página desejada
               window.location.href = '/dashboard';
             } else {
-              // eslint-disable-next-line no-undef
-              Swal.fire({
+               
+              await Swal.fire({
                 title: 'Erro no Login',
                 text: 'Não foi possível fazer o login automaticamente.',
                 icon: 'error',
@@ -112,8 +115,8 @@ export default function Register() {
               } else {
 
                     const errorData = await response.json();
-        // eslint-disable-next-line no-undef
-                    Swal.fire({
+         
+                    await Swal.fire({
                       title: 'Um erro ocorreu!',
                       text: `${errorData.message}`,
                       icon: 'error',
@@ -121,8 +124,8 @@ export default function Register() {
                     });
               }
         } catch (error) {
-      // eslint-disable-next-line no-undef
-          Swal.fire({
+       
+          await Swal.fire({
             title: 'Um erro ocorreu!',
             text: 'Erro no servidor. Tente novamente mais tarde.',
             icon: 'error',
