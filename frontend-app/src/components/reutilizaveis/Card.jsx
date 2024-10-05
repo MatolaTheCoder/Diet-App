@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default function Card({ title, image, description, calories }) {
+export default function Card({ title, description, calories }) {
     return (
         <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white " >
             {/* Imagem do card */}
-            <img className="w-full h-48 object-cover" src={image} alt={title} />
+            <img className="w-full h-48 object-cover" src="" alt={title} />
 
             <div className="px-6 py-4">
                 {/* Título da refeição */}
@@ -20,7 +20,7 @@ export default function Card({ title, image, description, calories }) {
             <div className="px-6 py-4 flex justify-between items-center">
                 <span className="text-gray-600 text-sm">Calorias: {calories}</span>
                 <button className="bg-emerald-500 text-white px-3 py-1 rounded-full text-sm hover:bg-emerald-600">
-                    Ver Detalhes
+                  Recomendavel
                 </button>
             </div>
         </div>
