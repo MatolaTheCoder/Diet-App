@@ -25,7 +25,7 @@ export default function Sugestoes() {
             }
 
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/sugestoes/${id}`, {
+                const response = await fetch(`http://127.0.0.1:8000/api/todas-sugestoes`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,

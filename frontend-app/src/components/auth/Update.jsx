@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import InicialHeader from '../reutilizaveis/InicialHeader';
 import InputField from '../reutilizaveis/InputField';
+import Header from "../utilities/Header.jsx";
 
 export default function Update() {
     const [data, setData] = useState(null);
@@ -123,7 +124,7 @@ export default function Update() {
     return (
         <div>
             <div className="shadow">
-                <InicialHeader />
+                <Header />
             </div>
             <div className="flex justify-center items-center w-full pt-5">
                 <form onSubmit={handleSubmit}>
