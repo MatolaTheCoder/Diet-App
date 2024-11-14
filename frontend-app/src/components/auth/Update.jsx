@@ -81,7 +81,7 @@ export default function Update() {
 
 
         try {
-            const response = await fetch('http://localhost:8000/api/update/user/1', {
+            const response = await fetch(`http://localhost:8000/api/update/user/${data.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -97,6 +97,7 @@ export default function Update() {
                     icon: 'success',
                     confirmButtonText: 'OK'
                 })
+                window.location.href = '/informacoes';
             } else {
 
                 const errorData = await response.json();
