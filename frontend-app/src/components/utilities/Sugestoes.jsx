@@ -100,7 +100,7 @@ export default function Sugestoes() {
                         <Card
                             key={index}
                             title={meal.nome}           // Usando `nome` ao invés de `title`
-                            image={meal.imagem}         // Usando `imagem` ao invés de `image`
+                            image={`../../public/img/refeicoes/${meal.nome}.jpg`}         // Usando `imagem` ao invés de `image`
                             description={meal.descricao} // Usando `descricao` ao invés de `description`
                             calories={meal.calorias}     // Usando `calorias`
                         />
