@@ -11,6 +11,7 @@ import Informacoes from "./components/utilities/Informacoes.jsx";
 import Sugestoes from "./components/utilities/Sugestoes.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 import ProtectedAccess from './components/reutilizaveis/ProtectedAccess.jsx'
+import MealCard from './components/reutilizaveis/MealCard.jsx'
 
 function Logout() {
   return null;
@@ -25,6 +26,7 @@ function App() {
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/update' element={<ProtectedAccess><Update/></ProtectedAccess>}/>
+        <Route path='/meal' element={<ProtectedAccess><MealCard/></ProtectedAccess>}/>
         <Route path='/dashboard' element={<ProtectedAccess><Dashboard/> </ProtectedAccess>}/>
         <Route path='/home' element={<ProtectedAccess><Home/></ProtectedAccess>}/>
         <Route path="/informacoes" element={<ProtectedAccess> <Informacoes/></ProtectedAccess>} />
