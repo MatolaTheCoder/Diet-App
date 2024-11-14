@@ -99,7 +99,7 @@ export default function Register() {
               localStorage.setItem('token', token_var);
               localStorage.setItem('user_id',userid)
               // Redirecione o usuário para a página inicial ou para a página desejada
-              window.location.href = '/dashboard';
+              window.location.href = '/informacoes';
             } else {
                
               await Swal.fire({

@@ -51,7 +51,7 @@ export default function Login() {
                 localStorage.setItem('user_id',loginData.user_id);
 
                 // Redireciona para a dashboard
-                window.location.href = '/dashboard';
+                window.location.href = '/informacoes';
             } else {
                 // Exibe uma mensagem de erro no login
                 const errorData = await response.json();

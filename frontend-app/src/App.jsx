@@ -27,7 +27,7 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/update' element={<ProtectedAccess><Update/></ProtectedAccess>}/>
         <Route path='/meal' element={<ProtectedAccess><MealCard/></ProtectedAccess>}/>
-        <Route path='/dashboard' element={<ProtectedAccess><Dashboard/> </ProtectedAccess>}/>
+        <Route path='/refeicoes-do-dia' element={<ProtectedAccess><Dashboard/> </ProtectedAccess>}/>
         <Route path='/home' element={<ProtectedAccess><Home/></ProtectedAccess>}/>
         <Route path="/informacoes" element={<ProtectedAccess> <Informacoes/></ProtectedAccess>} />
         <Route path="/sugestoes" element={<ProtectedAccess> <Sugestoes/> </ProtectedAccess>} />
