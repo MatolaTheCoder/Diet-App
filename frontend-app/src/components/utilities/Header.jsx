@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 export default function Header() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [searchOpen, setSearchOpen] = useState(false);
+    const numeroRefeicoes='3';
 
     // Exemplo de dados de tarefas
     const refeicao = [
@@ -56,7 +57,7 @@ export default function Header() {
     const handleUpdate = async () => {
         try {
             const id = localStorage.getItem('user_id');
-            const response = await fetch(`http://127.0.0.1:8000/api/update/${Number(id)}`, {
+            const response = await fetch(`http://127.0.0.1:8000/api/update/${Number(id)}/`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -67,6 +68,33 @@ export default function Header() {
             }
             const data = await response.json();
             localStorage.setItem('dados', JSON.stringify(data));
+        } catch (error) {
+            Swal.fire({
+                title: 'Um erro ocorreu!',
+                text: `Erro:${error}`,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            console.error(error);
+        }
+    };
+
+    const handleSearch = async () => {
+        try {
+            const id = localStorage.getItem('user_id');
+            const token = localStorage.getItem('token');
+            const response = await fetch(`http://127.0.0.1:8000/api/planoAlimentar/${Number(id)}/3`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            if (response.ok) {
+                const data = await response.json();
+                console.log("Dados recebidos da API:", data); 
+                window.location.href = '/refeicoes-do-dia';
+            }
         } catch (error) {
             Swal.fire({
                 title: 'Um erro ocorreu!',
@@ -97,8 +125,9 @@ export default function Header() {
                                             className="text-gray-500 absolute top-1/2 -translate-y-1/2 left-3 cursor-pointer"
                                         />
                                         <input
-                                            type="text"
+                                            type="number"
                                             placeholder="Search refeicao..."
+                                            // value={numeroRefeicoes}
                                             className="border border-gray-300 rounded-md h-10 w-full pl-10 pr-4 focus:outline-none focus:border-gray-200 text-sm"
                                             onClick={() => setSearchOpen(!searchOpen)}
                                         />
@@ -118,7 +147,16 @@ export default function Header() {
                                             ))}
                                         </div>
                                     )}
-                                </div>
+                                </div> 
+                                
+                            </li>
+                            <li>
+                            <button
+                                className="p-1.5 w-4/5 bg-emerald-100 text-emerald-600 px-6 py-2 rounded-full font-semibold hover:bg-emerald-200"
+                                onClick={handleSearch}
+                            >
+                                Pesquisar
+                            </button>
                             </li>
                             <li className="hover:text-gray-800 transition-colors duration-200">
                                 <Link to="/informacoes">Informações</Link>
@@ -155,3 +193,34 @@ export default function Header() {
         </header>
     );
 }
+// Estilos para o loading
+const loadingStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+};
+
+
+
+// Estilos para o spinner (opcional)
+const spinnerStyle = `
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #09f;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+`;
+
+// Adicionando estilo do spinner no documento
+const styleElement = document.createElement('style');
+styleElement.textContent = spinnerStyle;
+document.head.appendChild(styleElement);document.head.appendChild(styleElement);
