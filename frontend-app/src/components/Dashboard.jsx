@@ -7,8 +7,11 @@ export default function Dashboard() {
     const [planoAlimentar, setPlanoAlimentar] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [numeroRefeicoes, setNumeroRefeicoes] = useState(0);
 
     useEffect(() => {
+        const storedNumeroRefeicoes = localStorage.getItem('numeroRefeicoes');
+        console.log("Refeicoes:", localStorage.getItem('numeroRefeicoes'));
         const fetchSuggestions = async () => {
             const token = localStorage.getItem('token');
             const storeduserid = localStorage.getItem('user_id');
@@ -17,6 +20,10 @@ export default function Dashboard() {
             console.log("ID do usuário recuperado do localStorage:", id);
             console.log("Token do usuário:", token);
 
+            if (storedNumeroRefeicoes) {
+                setNumeroRefeicoes(storedNumeroRefeicoes);
+            }
+
             if (!id || isNaN(id)) {
                 setError("ID do usuário inválido");
                 setLoading(false);
@@ -24,7 +31,7 @@ export default function Dashboard() {
             }
 
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/planoAlimentar/${id}/3`, {
+                const response = await fetch(`http://127.0.0.1:8000/api/planoAlimentar/${id}/${localStorage.getItem('numeroRefeicoes')}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -36,11 +43,22 @@ export default function Dashboard() {
                     console.log("Dados recebidos da API:", data);
                     setPlanoAlimentar(data.planoAlimentar);
                 } else {
-                    setError('Erro ao carregar sugestões');
+                    Swal.fire({
+                        title: 'Erro ao carregar sugestões',
+                        text:  'Não foi possível sugerir refeições.',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                    });
                 }
             } catch (err) {
                 setError('Erro ao conectar ao servidor');
                 console.error("Erro na requisição:", err);
+                Swal.fire({
+                    title: 'Erro ao carregar sugestões',
+                    text: 'Não foi possível sugerir refeições.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                });
             } finally {
                 setLoading(false);
             }

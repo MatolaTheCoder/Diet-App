@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { HiOutlineSearch } from 'react-icons/hi';
 import { IoRestaurant } from 'react-icons/io5';
 import { MdFastfood } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Header() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [searchOpen, setSearchOpen] = useState(false);
-    const numeroRefeicoes='3';
+    const [numeroRefeicoes, setNumeroRefeicoes] = useState();
+    const navigate = useNavigate();
 
     // Exemplo de dados de tarefas
     const refeicao = [
@@ -16,7 +17,7 @@ export default function Header() {
             icon: <IoRestaurant />,
             title: 'Pequeeno almoco',
             category: 'Categoria 1',
-            calorias:'120',
+            calorias: '120',
         },
         {
             id: 2,
@@ -27,6 +28,7 @@ export default function Header() {
         },
         // Adicione mais tarefas conforme necessário
     ];
+
 
     const handleLogout = async () => {
         const token = localStorage.getItem('token');
@@ -83,7 +85,7 @@ export default function Header() {
         try {
             const id = localStorage.getItem('user_id');
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://127.0.0.1:8000/api/planoAlimentar/${Number(id)}/3`, {
+            const response = await fetch(`http://127.0.0.1:8000/api/planoAlimentar/${Number(id)}/${numeroRefeicoes}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -92,8 +94,12 @@ export default function Header() {
             });
             if (response.ok) {
                 const data = await response.json();
-                console.log("Dados recebidos da API:", data); 
-                window.location.href = '/refeicoes-do-dia';
+                // Salvar o número de refeições no localStorage (ou state)
+                localStorage.setItem('numeroRefeicoes', numeroRefeicoes);
+
+                // Redirecionar para a próxima página e passar o valor
+                navigate('/refeicoes-do-dia', { state: { data, numeroRefeicoes } });
+                window.location.reload(); 
             }
         } catch (error) {
             Swal.fire({
@@ -121,15 +127,16 @@ export default function Header() {
                             <li className='relative mx-2'>
                                 <div className="w-full max-w-3xl mx-auto bg-gray-100  rounded-lg shadow-md">
                                     <div className="relative mb-4">
-                                        <HiOutlineSearch 
+                                        <HiOutlineSearch
                                             className="text-gray-500 absolute top-1/2 -translate-y-1/2 left-3 cursor-pointer"
                                         />
                                         <input
                                             type="number"
-                                            placeholder="Search refeicao..."
-                                            // value={numeroRefeicoes}
+                                            placeholder="Número de refeições..."
+                                            value={numeroRefeicoes}
+                                            onChange={(e) => setNumeroRefeicoes(e.target.value)} // Atualiza o estado
                                             className="border border-gray-300 rounded-md h-10 w-full pl-10 pr-4 focus:outline-none focus:border-gray-200 text-sm"
-                                            onClick={() => setSearchOpen(!searchOpen)}
+                                        // onClick={() => setSearchOpen(!searchOpen)}
                                         />
                                     </div>
                                     {searchOpen && (
@@ -147,16 +154,16 @@ export default function Header() {
                                             ))}
                                         </div>
                                     )}
-                                </div> 
-                                
+                                </div>
+
                             </li>
                             <li>
-                            <button
-                                className="p-1.5 w-4/5 bg-emerald-100 text-emerald-600 px-6 py-2 rounded-full font-semibold hover:bg-emerald-200"
-                                onClick={handleSearch}
-                            >
-                                Pesquisar
-                            </button>
+                                <button
+                                    className="p-1.5 w-4/5 bg-emerald-100 text-emerald-600 px-6 py-2 rounded-full font-semibold hover:bg-emerald-200"
+                                    onClick={handleSearch}
+                                >
+                                    Pesquisar
+                                </button>
                             </li>
                             <li className="hover:text-gray-800 transition-colors duration-200">
                                 <Link to="/informacoes">Informações</Link>
@@ -223,4 +230,4 @@ const spinnerStyle = `
 // Adicionando estilo do spinner no documento
 const styleElement = document.createElement('style');
 styleElement.textContent = spinnerStyle;
-document.head.appendChild(styleElement);document.head.appendChild(styleElement);
+document.head.appendChild(styleElement); document.head.appendChild(styleElement);
